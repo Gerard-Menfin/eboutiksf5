@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div>
+        <div>Détail de la commande : {{ commande.details|length }} produit(s)</div>
+        <table class="table">
+            <thead class="thead-dark">
+                <th>Produit</th>
+                <th>Prix unitaire</th>
+                <th>Quantité</th>
+                <th>Total</th>
+            </thead>
+            {% for detail in commande.details %}
+                <tr>
+                    <td><a href="{{ path('produit_show', {'id': detail.produit.id}) }}">
+                        {{ detail.produit.titre }}
+                        </a>
+                    </td>
+                    <td>{{ detail.prix }} €</td>
+                    <td>{{ detail.quantite }}</td>
+                    <td>{{ detail.prix * detail.quantite }} €</td> 
+                </tr>
+            {% endfor %}
+            <tfoot>
+                <tr>
+                    <td colspan=3>Total</td>
+                    <td>{{ commande.montant }} €</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+{% endblock %}

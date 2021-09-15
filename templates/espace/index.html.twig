@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EspaceController!{% endblock %}
+
+{% block body %}
+    <h2>Bienvenue {{ app.user.pseudo }}, dans l'espace client</h2>
+
+    <h3>Informations</h3>
+    <table class="table table-bordered">
+        <tr>
+            <th>Nom</th>
+            <td>{{ app.user.nom }}</td>
+        </tr>
+        <tr>
+            <th>Prénom</th>
+            <td>{{ app.user.prenom }}</td>
+        </tr>
+        <tr>
+            <th>Commandes</th>
+            <td>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <th>Date</th>
+                        <th>Montant</th>
+                        <th>Etat</th>
+                        <th>Actions</th>
+                    </thead>
+
+                    {% for commande in app.user.commandes %}
+                        <tr>
+                            <td>{{ commande.date|date("d/m/y") }}</td>
+                            <td>{{ commande.montant }} €</td>
+                            <td>{{ commande.etat }}</td>
+                            <td>
+                                <a href="{{ path("espace_detail_commande", {id: commande.id}) }}" class="btn btn-primary">
+                                    Détail
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tr>
+    
+    </table>
+{% endblock %}

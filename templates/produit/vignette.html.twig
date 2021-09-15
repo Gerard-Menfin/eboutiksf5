@@ -1,0 +1,42 @@
+<div class="col-4 my-2">
+    <div class="card" style="margin-right: 0;margin-left: 0;">
+        <div class="card-header">
+            <img class="img-vignette card-img-top mx-auto" src=""
+                alt="{{ produit.titre }}">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Nom : {{ produit.titre }}</h5>
+            <p class="card-text">Prix : {{ produit.prix }} €</p>
+            <p class="card-text">Stock : {{ produit.stock }}</p>
+            
+            <div class="card-footer">
+                <form method="GET" action="{{ path("panier_ajouter", { id: produit.id }) }}" class="mt-2 form-inline" id="">
+                    <div class="row m-0">
+                        <a href=""
+                            class="btn btn-primary col-12 col-md-3">Voir
+                        </a>
+                        <div class="col-12 col-md-2"></div>
+            
+                        <div class="col-12 col-md-7 d-flex flex-row justify-content-between px-0">
+                            <input type="number" name="quantite" value=1 min=1 max={{ produit.stock }} class="form-control col-7">
+                            <button class="btn btn-info col-4">
+                                <i class="fa fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                {# <a href="{{ path("panier_ajouter", {id: produit.id}) }}" class="btn btn-primary col-12 col-md-3"> <i class="fa fa-cart-plus"></i></a> #}
+
+            </div>
+
+            {# <form method="get" action="{{ path("aj_panier_ajouter") }}" class="frm_ajpan mt-2">
+                <input name="id"  type="hidden" value="{{produit.id}}">
+                <input name="qte" type="number">
+                <button class="btn btn-info">
+                    <i class="fa fa-cart-arrow-down"></i>
+                </button>
+            </form> #}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+    <h1>Mon panier</h1>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th colspan=3>Panier </th>
+                <th>
+                    <a href="{{ path("panier_vider") }}" title="vider le panier">
+                        <i class="fa fa-cart-arrow-down"></i>
+                    </a>
+                </th>
+            </tr>
+            <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Qté</th>
+                <th>Total </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% set total = 0 %}
+            {% for article in panier %}
+                <tr>
+                    <td>{{ article.produit.titre }}</td>
+                    <td>{{ article.produit.prix }}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-2">
+                                {{ article.quantite }}
+                            </div>
+                            <div class="col-6"></div>
+                            <div class="col-4">
+                                <form method="GET" action="{{ path("panier_ajouter", { id: article.produit.id }) }}" class="mt-2 form-inline" id="">
+                                    <input type="number" name="quantite" value=-1 min="-{{ article.quantite }}" max="-1" class="form-control col-7">
+                                    <button class="btn btn-info col-4">
+                                        <i class="fa fa-cart-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    
+                    </td>
+                    <td>
+                        {{ article.produit.prix * article.quantite }}
+                        <a href="{{ path("panier_supprimer", {id: article.produit.id}) }}" class="float-right">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {# la balise twig 'set' permet de définir une variable #}
+                {% set total = total + article.produit.prix * article.quantite %}
+            {% else %}
+                <td>Aucun produit dans le panier</td>
+            {% endfor %}
+        </tbody>
+
+        <tfoot class="thead-dark">
+            <tr>
+                <th colspan=3>Total</th>
+                <td>
+                    {{ total }} €
+                    <a href="{{ path("panier_valider") }}" class="float-right">
+                        <i class="fa fa-cash-register"></i>
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}

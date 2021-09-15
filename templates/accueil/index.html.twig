@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="card-deck">
+        {% for produit in produits %}
+            {% include "produit/vignette.html.twig" %}
+        {% endfor %}
+    </div>
+{% endblock %}
